@@ -1,0 +1,11 @@
+{% for user in friendsList %}
+<li>
+    <div class="left-content">
+        <a href="user-profile.html"><img src="/static/assets/images/stories/small/pic3.jpg" alt="/"></a>
+        <a href="user-profile.html">
+            <h6 class="name">{{user.name}}</h6>
+        </a>
+    </div>
+    <a href="javascript:void(0);" class="btn btn-primary btn-sm" id="selectFriends{{user.id}}" onclick="selectFriends('{{user.id}}')">Select</a>
+</li>
+{% endfor %}
