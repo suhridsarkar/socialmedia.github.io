@@ -1,0 +1,376 @@
+{% extends 'commen.html' %} {% block title %} Home {% endblock title %} {% block body %}
+<!-- Page Content -->
+<div class="page-content">
+    <div class="content-inner pt-0">
+        <div class="container bottom-content">
+            <!-- STORY -->
+            <div class="author-notification mb-4">
+                <div class="swiper-btn-center-lr my-0">
+                    <div class="swiper-container categorie-swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <a href="story.html" class="categore-box style-1">
+                                    <div class="story-bx">
+                                        <img src="/static/assets/images/stories/small/pic8.jpg" alt="/">
+                                        <div class="add-box">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </div>
+                                    </div>
+                                    <span class="detail">Your Story</span>
+                                </a>
+                            </div>
+                            <div class="swiper-slide">
+                                <a href="live-story.html" class="categore-box">
+                                    <div class="story-bx">
+                                        <img src="/static/assets/images/stories/small/pic1.jpg" alt="/">
+                                        <div class="live-text">Live</div>
+                                    </div>
+                                    <span class="detail">Emilia</span>
+                                </a>
+                            </div>
+                            <div class="swiper-slide">
+                                <a href="story.html" class="categore-box">
+                                    <div class="story-bx">
+                                        <img src="/static/assets/images/stories/small/pic2.jpg" alt="/">
+                                    </div>
+                                    <span class="detail">Richard</span>
+                                </a>
+                            </div>
+                            <div class="swiper-slide">
+                                <a href="story.html" class="categore-box">
+                                    <div class="story-bx">
+                                        <img src="/static/assets/images/stories/small/pic3.jpg" alt="/">
+                                    </div>
+                                    <span class="detail">Jasmine</span>
+                                </a>
+                            </div>
+                            <div class="swiper-slide">
+                                <a href="story.html" class="categore-box">
+                                    <div class="story-bx">
+                                        <img src="/static/assets/images/stories/small/pic4.jpg" alt="/">
+                                    </div>
+                                    <span class="detail">Lucas</span>
+                                </a>
+                            </div>
+                            <div class="swiper-slide">
+                                <a href="story.html" class="categore-box">
+                                    <div class="story-bx">
+                                        <img src="/static/assets/images/stories/small/pic5.jpg" alt="/">
+                                    </div>
+                                    <span class="detail">Hendri</span>
+                                </a>
+                            </div>
+                            <div class="swiper-slide">
+                                <a href="story.html" class="categore-box">
+                                    <div class="story-bx">
+                                        <img src="/static/assets/images/stories/small/pic6.jpg" alt="/">
+                                    </div>
+                                    <span class="detail">Carla</span>
+                                </a>
+                            </div>
+                            <div class="swiper-slide">
+                                <a href="live-story.html" class="categore-box">
+                                    <div class="story-bx">
+                                        <img src="/static/assets/images/stories/small/pic7.jpg" alt="/">
+                                        <div class="live-text">Live</div>
+                                    </div>
+                                    <span class="detail">Jermy</span>
+                                </a>
+                            </div>
+                            <div class="swiper-slide">
+                                <a href="story.html" class="categore-box">
+                                    <div class="story-bx">
+                                        <img src="/static/assets/images/stories/small/pic5.jpg" alt="/">
+                                    </div>
+                                    <span class="detail">Kerry</span>
+                                </a>
+                            </div>
+                            <div class="swiper-slide">
+                                <a href="story.html" class="categore-box">
+                                    <div class="story-bx">
+                                        <img src="/static/assets/images/stories/small/pic6.jpg" alt="/">
+                                    </div>
+                                    <span class="detail">Perry</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- STORY -->
+            <div class="post-area">
+                {%for post in posts %}
+                <div class="post-card">
+                    <div class="top-meta">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <a href="#" class="media media-40">
+                            {%if post.user.image:%}
+                            <img class="rounded" src="static/uploads/profile/{{post.user.image}}" alt="/"> {% else: %}
+                            <img  class="rounded" src="/static/assets/images/noimage.jpg" alt="/"> {% endif %}
+                            </a>
+                            <div class="meta-content ms-3">
+                                <h6 class="title mb-0"><a href="#">{{post.user.name}}</a></h6>
+                                <!-- <ul class="meta-list">
+                                    <li>
+                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12.25 5.83331C12.25 9.91665 7 13.4166 7 13.4166C7 13.4166 1.75 9.91665 1.75 5.83331C1.75 4.44093 2.30312 3.10557 3.28769 2.121C4.27226 1.13644 5.60761 0.583313 7 0.583313C8.39239 0.583313 9.72774 1.13644 10.7123 2.121C11.6969 3.10557 12.25 4.44093 12.25 5.83331Z" stroke="black" stroke-opacity="0.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M7 7.58331C7.9665 7.58331 8.75 6.79981 8.75 5.83331C8.75 4.86681 7.9665 4.08331 7 4.08331C6.0335 4.08331 5.25 4.86681 5.25 5.83331C5.25 6.79981 6.0335 7.58331 7 7.58331Z" stroke="black" stroke-opacity="0.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        Bangkok, Thailand
+                                    </li>
+                                    <li>2m ago</li>
+                                </ul> -->
+                            </div>
+                        </div>
+                        <a href="javascript:void(0);" class="item-content item-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom">
+                            <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14.7566 4.93237L9.60021 0.182841C9.14886 -0.23294 8.4375 0.104591 8.4375 0.750465V3.25212C3.73157 3.30959 0 4.31562 0 9.07267C0 10.9927 1.1596 12.8948 2.4414 13.8893C2.84139 14.1996 3.41145 13.8101 3.26397 13.3071C1.93553 8.77542 3.89405 7.57236 8.4375 7.50264V10.25C8.4375 10.8969 9.14942 11.2329 9.60021 10.8176L14.7566 6.06761C15.0809 5.7688 15.0814 5.23158 14.7566 4.93237Z" fill="#E4BEAB"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <p class="text-black">
+                        {{post.post.text}}
+                    </p>
+                    <div class="dz-media">
+                        {%if post.post.image:%}
+                        <img src="/static/uploads/post/{{post.post.image}}" alt="/"> {%endif%}
+                        <div class="post-meta-btn">
+                            <ul>
+                                <li>
+                                    <a href="javascript:void(0);" class="action-btn bg-primary">
+                                        <i class="fa-regular fa-heart fill-icon"></i>
+                                        <i class="fa-solid fa-heart fill-icon-2"></i>
+                                        <h6 class="font-14 mb-0 ms-2" id="value1">221</h6>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="comment.html" class="action-btn bg-secondary">
+                                        <i class="fa-solid fa-comment fill-icon"></i>
+                                        <h6 class="font-14 mb-0 ms-2">150</h6>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Content End-->
+
+
+
+<!-- OffCanvas-1 -->
+<div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom1">
+    <button type="button" class="btn-close drage-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div class="offcanvas-header share-style m-0 pb-0">
+        <form class="w-100">
+            <input type="text" class="form-control border-0" placeholder="Write a message ..." />
+        </form>
+    </div>
+    <div class="offcanvas-body container pb-0">
+        <form>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search..">
+                <span class="input-group-text"> 
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M23.7871 22.7761L17.9548 16.9437C19.5193 15.145 20.4665 12.7982 20.4665 10.2333C20.4665 4.58714 15.8741 0 10.2333 0C4.58714 0 0 4.59246 0 10.2333C0 15.8741 4.59246 20.4665 10.2333 20.4665C12.7982 20.4665 15.145 19.5193 16.9437 17.9548L22.7761 23.7871C22.9144 23.9255 23.1007 24 23.2816 24C23.4625 24 23.6488 23.9308 23.7871 23.7871C24.0639 23.5104 24.0639 23.0528 23.7871 22.7761ZM1.43149 10.2333C1.43149 5.38004 5.38004 1.43681 10.2279 1.43681C15.0812 1.43681 19.0244 5.38537 19.0244 10.2333C19.0244 15.0812 15.0812 19.035 10.2279 19.035C5.38004 19.035 1.43149 15.0865 1.43149 10.2333Z" fill="#FE9063"></path>
+                    </svg>
+                </span>
+            </div>
+        </form>
+        <div class="canvas-height mt-4 dz-scroll">
+            <ul class="share-list">
+                <li>
+                    <div class="left-content">
+                        <a href="#"><img src="/static/assets/images/stories/small/pic1.jpg" alt="/"></a>
+                        <a href="#">
+                            <h6 class="name">Andy Lee</h6>
+                            <span class="username">mr_andy_lee</span>
+                        </a>
+                    </div>
+                    <a href="javascript:void(0);" class="btn btn-primary btn-sm">Send</a>
+                </li>
+                <li>
+                    <div class="left-content">
+                        <a href="#"><img src="/static/assets/images/stories/small/pic2.jpg" alt="/"></a>
+                        <a href="#">
+                            <h6 class="name">Brian Harahap</h6>
+                            <span class="username">brian_harahap</span>
+                        </a>
+                    </div>
+                    <a href="javascript:void(0);" class="btn btn-primary btn-sm">Send</a>
+                </li>
+                <li>
+                    <div class="left-content">
+                        <a href="#"><img src="/static/assets/images/stories/small/pic3.jpg" alt="/"></a>
+                        <a href="#">
+                            <h6 class="name">Christian Hang</h6>
+                            <span class="username">christian_Hang</span>
+                        </a>
+                    </div>
+                    <a href="javascript:void(0);" class="btn btn-primary btn-sm">Send</a>
+                </li>
+                <li>
+                    <div class="left-content">
+                        <a href="#"><img src="/static/assets/images/stories/small/pic4.jpg" alt="/"></a>
+                        <a href="#">
+                            <h6 class="name">Chloe Mc. Jenskin</h6>
+                            <span class="username">chloe_mc_jenskin</span>
+                        </a>
+                    </div>
+                    <a href="javascript:void(0);" class="btn btn-primary btn-sm">Send</a>
+                </li>
+                <li>
+                    <div class="left-content">
+                        <a href="#"><img src="/static/assets/images/stories/small/pic5.jpg" alt="/"></a>
+                        <a href="#">
+                            <h6 class="name">David Bekam</h6>
+                            <span class="username">david_bekam</span>
+                        </a>
+                    </div>
+                    <a href="javascript:void(0);" class="btn btn-primary btn-sm">Send</a>
+                </li>
+                <li>
+                    <div class="left-content">
+                        <a href="#"><img src="/static/assets/images/stories/small/pic6.jpg" alt="/"></a>
+                        <a href="#">
+                            <h6 class="name">Donas High</h6>
+                            <span class="username">donas_high</span>
+                        </a>
+                    </div>
+                    <a href="javascript:void(0);" class="btn btn-primary btn-sm">Send</a>
+                </li>
+                <li>
+                    <div class="left-content">
+                        <a href="#"><img src="/static/assets/images/stories/small/pic7.jpg" alt="/"></a>
+                        <a href="#">
+                            <h6 class="name">Lee Comfort</h6>
+                            <span class="username">lee_comfort</span>
+                        </a>
+                    </div>
+                    <a href="javascript:void(0);" class="btn btn-primary btn-sm">Send</a>
+                </li>
+                <li>
+                    <div class="left-content">
+                        <a href="#"><img src="/static/assets/images/stories/small/pic8.jpg" alt="/"></a>
+                        <a href="#">
+                            <h6 class="name">Michel Evon</h6>
+                            <span class="username">michel_evon</span>
+                        </a>
+                    </div>
+                    <a href="javascript:void(0);" class="btn btn-primary btn-sm">Send</a>
+                </li>
+                <li>
+                    <div class="left-content">
+                        <a href="#"><img src="/static/assets/images/stories/small/pic4.jpg" alt="/"></a>
+                        <a href="#">
+                            <h6 class="name">Yatin</h6>
+                            <span class="username">yatin_325</span>
+                        </a>
+                    </div>
+                    <a href="javascript:void(0);" class="btn btn-primary btn-sm">Send</a>
+                </li>
+                <li>
+                    <div class="left-content">
+                        <a href="#"><img src="/static/assets/images/stories/small/pic3.jpg" alt="/"></a>
+                        <a href="#">
+                            <h6 class="name">Tushar</h6>
+                            <span class="username">Tjangid_293</span>
+                        </a>
+                    </div>
+                    <a href="javascript:void(0);" class="btn btn-primary btn-sm">Send</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- OffCanvas-1 -->
+
+<!-- Theme Color Settings -->
+<div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom">
+    <div class="offcanvas-body small">
+        <ul class="theme-color-settings">
+            <li>
+                <input class="filled-in" id="primary_color_8" name="theme_color" type="radio" value="color-primary" />
+                <label for="primary_color_8"></label>
+                <span>Default</span>
+            </li>
+            <li>
+                <input class="filled-in" id="primary_color_2" name="theme_color" type="radio" value="color-green" />
+                <label for="primary_color_2"></label>
+                <span>Green</span>
+            </li>
+            <li>
+                <input class="filled-in" id="primary_color_3" name="theme_color" type="radio" value="color-blue" />
+                <label for="primary_color_3"></label>
+                <span>Blue</span>
+            </li>
+            <li>
+                <input class="filled-in" id="primary_color_4" name="theme_color" type="radio" value="color-pink" />
+                <label for="primary_color_4"></label>
+                <span>Pink</span>
+            </li>
+            <li>
+                <input class="filled-in" id="primary_color_5" name="theme_color" type="radio" value="color-yellow" />
+                <label for="primary_color_5"></label>
+                <span>Yellow</span>
+            </li>
+            <li>
+                <input class="filled-in" id="primary_color_6" name="theme_color" type="radio" value="color-orange" />
+                <label for="primary_color_6"></label>
+                <span>Orange</span>
+            </li>
+            <li>
+                <input class="filled-in" id="primary_color_7" name="theme_color" type="radio" value="color-purple" />
+                <label for="primary_color_7"></label>
+                <span>Purple</span>
+            </li>
+            <li>
+                <input class="filled-in" id="primary_color_1" name="theme_color" type="radio" value="color-red" />
+                <label for="primary_color_1"></label>
+                <span>Red</span>
+            </li>
+            <li>
+                <input class="filled-in" id="primary_color_9" name="theme_color" type="radio" value="color-lightblue" />
+                <label for="primary_color_9"></label>
+                <span>Lightblue</span>
+            </li>
+            <li>
+                <input class="filled-in" id="primary_color_10" name="theme_color" type="radio" value="color-teal" />
+                <label for="primary_color_10"></label>
+                <span>Teal</span>
+            </li>
+            <li>
+                <input class="filled-in" id="primary_color_11" name="theme_color" type="radio" value="color-lime" />
+                <label for="primary_color_11"></label>
+                <span>Lime</span>
+            </li>
+            <li>
+                <input class="filled-in" id="primary_color_12" name="theme_color" type="radio" value="color-deeporange" />
+                <label for="primary_color_12"></label>
+                <span>Deeporange</span>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- Theme Color Settings End -->
+
+<!-- PWA Offcanvas -->
+<div class="offcanvas offcanvas-bottom pwa-offcanvas">
+    <div class="container">
+        <div class="offcanvas-body small">
+            <img class="logo" src="/static/assets/images/icon.png" alt="">
+            <h5 class="title">Soziety on Your Home Screen</h5>
+            <p>Install Soziety - Social Network on your home screen, and access it just like a regular app</p>
+            <button type="button" class="btn btn-sm btn-primary pwa-btn">Add to Home Screen</button>
+            <button type="button" class="btn btn-sm pwa-close light btn-secondary ms-2">Maybe later</button>
+        </div>
+    </div>
+</div>
+<div class="offcanvas-backdrop pwa-backdrop"></div>
+<!-- PWA Offcanvas End -->
+
+{% endblock body %}
