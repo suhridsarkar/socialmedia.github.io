@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, minimal-ui, viewport-fit=cover">
+    <meta name="theme-color" content="#2196f3">
+    <meta name="author" content="DexignZone" />
+    <meta name="keywords" content="" />
+    <meta name="robots" content="" />
+    <meta name="description" content="Soziety - Social Network Mobile App Template ( Bootstrap 5 + PWA )" />
+    <meta property="og:title" content="Soziety - Social Network Mobile App Template ( Bootstrap 5 + PWA )" />
+    <meta property="og:description" content="Soziety - Social Network Mobile App Template ( Bootstrap 5 + PWA )" />
+    <meta property="og:image" content="social-image.png" />
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- Favicons Icon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/static/assets/images/favicon.png" />
+
+    <!-- Title -->
+    <title>Soziety - Social Network Mobile App Template ( Bootstrap 5 + PWA )</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/static/assets/vendor/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/assets/css/style.css">
+
+    <!-- Animte -->
+    <link rel="stylesheet" href="/static/assets/vendor/wow/css/libs/animate.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&amp;family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+
+</head>
+<style>
+    /* 
+    ################################
+    # Start Alert JS
+    ################################ 
+    */
+    
+    .alert {
+        position: fixed;
+        top: 70%;
+        left: 12px;
+        /* left: 36%;
+        transform: translate(-50%, -50%); */
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        z-index: 9999;
+        animation: slideInRight 0.5s, slideOutRight 0.5s 4.5s;
+        font-size: 24px;
+        margin-top: 0;
+    }
+    
+    button.close {
+        position: absolute;
+        right: 16px;
+        /* width: 29px; */
+        /* height: 40px; */
+        border: none;
+        background: none;
+    }
+    
+    @keyframes slideInRight {
+        from {
+            right: -250px;
+        }
+        to {
+            right: 0;
+        }
+    }
+    
+    @keyframes slideOutRight {
+        from {
+            right: 0;
+        }
+        to {
+            right: -250px;
+        }
+    }
+    /* 
+    ################################
+    # END Alert JS
+    ################################ 
+    */
+</style>
+<!-- <body class="gradiant-bg"> -->
+
+<body>
+    {% block body %} {% endblock body %}
+
+
+    <!-- 
+        ################################
+        # Start Alert HTML
+        ################################
+        -->
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+    <div class="alert alert-{{ category }}" id="{{ category }}Alert">
+        <button type="button" class="close" id="" data-dismiss="alert">&times;</button>
+        <strong>{{ category }}!</strong><br>
+        <p id="successAlertText"> {{ message }}</p>
+
+    </div>
+    {% endfor %} {% endif %} {% endwith %}
+    <div class="alert alert-success" id="successAlert" style="display:none;">
+        <button type="button" class="close" id="" data-dismiss="alert">&times;</button>
+        <strong>Success!</strong><br>
+        <p id="successAlertText"> </p>
+
+    </div>
+    <div class="alert alert-danger" id="errorAlert" style="display:none;">
+        <button type="button" class="close" id="" data-dismiss="alert">&times;</button>
+        <strong>Oops!</strong><br>
+        <p id="errorAlertText"> </p>
+    </div>
+
+    <!-- 
+        ################################
+        # End Alert HTML
+        ################################
+        -->
+
+    <!--**********************************
+    Scripts
+***********************************-->
+    <script src="/static/assets/js/jquery.js"></script>
+    <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/assets/vendor/wow/dist/wow.min.js"></script>
+    <script src="/static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <!-- Swiper -->
+    <script src="/static/assets/js/dz.carousel.js"></script>
+    <!-- Swiper -->
+    <script src="/static/assets/js/settings.js"></script>
+    <script src="/static/assets/js/custom.js"></script>
+    <script>
+        new WOW().init();
+
+        var wow = new WOW({
+            boxClass: 'wow', // animated element css class (default is wow)
+            animateClass: 'animated', // animation css class (default is animated)
+            offset: 50, // distance to the element when triggering the animation (default is 0)
+            mobile: false // trigger animations on mobile devices (true is default)
+        });
+        wow.init();
+    </script>
+    <script>
+        // ################################
+        // # Start Alert JS
+        // ################################
+
+
+        $(document).ready(function() {
+            // Hide the alerts after 5 seconds
+            setTimeout(function() {
+                $('.alert').fadeOut('slow');
+            }, 5000);
+        });
+
+        function successAlert(contentData) {
+            $('.successAlert').fadeIn();
+            $('#successAlertText').html(contentData);
+            setTimeout(function() {
+                $('#successAlert').fadeOut();
+            }, 5000);
+        };
+
+        function errorAlert(contentData) {
+            $('#errorAlert').fadeIn();
+            $('#errorAlertText').html(contentData);
+            setTimeout(function() {
+                $('#errorAlert').fadeOut();
+            }, 5000);
+        };
+        $(".close").click(function() {
+            $(this).parent().hide();
+        }); // ################################ // # END Alert JS // ################################
+    </script>
+    <!-- 
+    ################################
+    # Start Alert Calling
+    ################################ 
+    -->
+
+    {% if session["successAlert"] %}
+    <script>
+        $(document).ready(function() {
+            successAlert('{{ session["successAlert"] }}');
+        });
+    </script>
+    {% set _ = session.pop('successAlert', none) %} {% endif %} {% if session["errorAlert"] %}
+    <script>
+        $(document).ready(function() {
+            errorAlert('{{ session["errorAlert"] }}');
+        });
+    </script>
+    {% set _ = session.pop('errorAlert', none) %} {% endif %}
+    <!-- 
+    ################################
+    # End Alert Calling
+    ################################ 
+</body>
+
+</html>

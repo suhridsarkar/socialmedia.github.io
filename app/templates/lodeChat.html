@@ -1,0 +1,8 @@
+{% for chat in chats %}
+<div class="chat-content {%if chat.receiverId == friend.id:%} user {% endif %}">
+    <div class="message-item">
+        <div class="bubble">{{chat.messages}}</div>
+        <div class="message-time">{{chat.date}}</div>
+    </div>
+</div>
+{% endfor %}

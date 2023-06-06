@@ -1,0 +1,139 @@
+{% extends 'commen.html' %} {% block title %} Home {% endblock title %} {% block body %} {% import 'jinja2.filters' as filters %}
+
+<style>
+    .footer.fixed {
+        width: 100%;
+        left: 0;
+        background-color: var(--bg-white);
+        bottom: 0;
+        z-index: 999;
+        position: fixed;
+        margin-bottom: 85px;
+    }
+    
+    .page-wraper.header-fixed:before {
+        content: none;
+    }
+</style>
+<div class="page-wraper header-fixed">
+
+    <!-- Header -->
+    <header class="header bg-white">
+        <div class="container">
+            <div class="main-bar">
+                <div class="left-content">
+                    <a href="javascript:void(0);" class="back-btn">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                    <div class="media me-3 media-35 rounded-circle">
+                        {%if friend.image:%}
+                        <img id="profilepic" src="/static/uploads/profile/{{friend.image}}" alt="/"> {% else: %}
+                        <img id="profilepic" src="/static/assets/images/noimage.jpg" alt="/"> {% endif %}
+                    </div>
+                    <h5 class="mb-0">{{friend.name}}</h5>
+                </div>
+                <div class="mid-content">
+                </div>
+                <div class="right-content">
+                    <a href="javascript:void(0);" class="text-dark font-20" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                        <i class="fa-solid fa-video"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header End -->
+
+    <!-- Page content  -->
+    <div class="page-content message-content">
+        <div class="container chat-box-area bottom-content" id="chatBody">
+
+            {% for chat in chats %}
+            <div class="chat-content {%if chat.receiverId == friend.id:%} user {% endif %}">
+                <div class="message-item">
+                    <div class="bubble">{{chat.messages}}</div>
+                    {% set date_format = "%H:%M:%S" %}
+                    <div class="message-time">{{ chat.date | filters.datetime('%b %d, %Y') }}</div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+    <!-- Page content End -->
+
+    <!-- Footer -->
+    <footer class="footer border-0 fixed">
+        <div class="container p-2">
+            <div class="chat-footer">
+                <form action="javascript:void(0);">
+                    <div class="form-group boxed">
+                        <div class="input-wrapper message-area">
+                            <div class="append-media"></div>
+                            <input type="hidden" name="" id="friendId" value="{{friend.id}}">
+                            <input type="text" class="form-control" id="messages" placeholder="Type message...">
+                            <a href="javascript:void(0);" class="btn btn-chat btn-icon btn-primary p-0 btn-rounded" onclick="sendMessages();">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M21.4499 11.11L3.44989 2.11C3.27295 2.0187 3.07279 1.9823 2.87503 2.00546C2.67728 2.02862 2.49094 2.11029 2.33989 2.24C2.18946 2.37064 2.08149 2.54325 2.02982 2.73567C1.97815 2.9281 1.98514 3.13157 2.04989 3.32L4.99989 12L2.09989 20.68C2.05015 20.8267 2.03517 20.983 2.05613 21.1364C2.0771 21.2899 2.13344 21.4364 2.2207 21.5644C2.30797 21.6924 2.42378 21.7984 2.559 21.874C2.69422 21.9496 2.84515 21.9927 2.99989 22C3.15643 21.9991 3.31057 21.9614 3.44989 21.89L21.4499 12.89C21.6137 12.8061 21.7512 12.6786 21.8471 12.5216C21.9431 12.3645 21.9939 12.184 21.9939 12C21.9939 11.8159 21.9431 11.6355 21.8471 11.4784C21.7512 11.3214 21.6137 11.1939 21.4499 11.11ZM4.70989 19L6.70989 13H16.7099L4.70989 19ZM6.70989 11L4.70989 5L16.7599 11H6.70989Z" fill="#fff"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer End -->
+
+    <!-- Video Call -->
+    <div class="modal fade" tabindex="-1" id="exampleModal1" aria-labelledby="exampleModal1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded border-0">
+                <div class="modal-body video-calling">
+                    <div class="video-calling-popup" style="background-image: url(assets/images/stories/pic2.png);">
+                        <div class="main-box">
+                            <div class="media mb-4 mx-auto media-60 rounded-circle">
+                                <img src="assets/images/stories/pic2.png">
+                            </div>
+                            <div class="video-content">
+                                <i class="mb-2 fa-solid fa-video"></i>
+                                <h6 class="text-white">Emilia is video calling...</h6>
+                            </div>
+                            <div class="button-group">
+                                <a class="btn btn-danger me-3" href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></a>
+                                <a class="btn btn-success ms-3" href="video-call.html"><i class="fa-solid fa-check"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Video Call -->
+</div>
+<!-- <script type="text/javascript">
+    $("form").on("submit", function(e) {
+        e.preventDefault();
+    });
+</script> -->
+<script>
+    function sendMessages(messages) {
+        var messages = $("#messages").val();
+        var friendId = $("#friendId").val();
+        if (messages) {
+            $.ajax({
+                type: "post",
+                url: "/sendMessages",
+                data: {
+                    messages: messages,
+                    friend: friendId,
+                },
+                success: function(data) {
+                    // alert(data);
+                    $("#chatBody").html(data);
+                }
+            });
+        }
+    };
+</script>
+{% endblock body %}

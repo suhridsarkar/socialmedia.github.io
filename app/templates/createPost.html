@@ -1,0 +1,426 @@
+{% extends 'usercommen.html' %}{% block body %}
+
+<style>
+    .preview {
+        height: 467px;
+        width: 100%;
+        /* display: none; */
+    }
+    
+    body.gradiant-bg {
+        background: white;
+    }
+    
+    .preview video,
+    .preview img {
+        height: 301px;
+        width: 100%;
+    }
+    
+    .preview img {
+        height: auto;
+    }
+</style>
+<div class="page-wraper header-fixed">
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+    <!-- Preloader end-->
+    <form action="/savePost" method="POST" enctype="multipart/form-data">
+        <!-- Header -->
+        <header class="header bg-white">
+            <div class="container">
+                <div class="main-bar">
+                    <div class="left-content">
+                        <a href="javascript:void(0);" class="back-btn">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </a>
+                        <h4 class="title mb-0">Create Post</h4>
+                    </div>
+                    <div class="mid-content">
+                    </div>
+                    <div class="right-content">
+                        <button type="submit" class="post-btn">POST</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Header End -->
+        <div class="page-content">
+        <!-- {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <ul>
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+        {% endwith %} -->
+            <div class="container">
+                <div class="post-profile">
+                    <div class="left-content">
+                        <div class="media media-50 rounded-circle">
+                            {%if user.image:%}
+                        <img alt="Avatar" src="/static/uploads/profile/{{user.image}}" alt="/"> {% else: %}
+                        <img alt="Avatar" src="/static/assets/images/noimage.jpg" alt="/"> {% endif %}
+                        </div>
+                        <div class="ms-2">
+                            <h6 class="mb-1">{{user.name}}</h6>
+                            <ul class="meta-list">
+                                <li class="me-2">
+                                    <a href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd1" aria-controls="offcanvasEnd1">
+                                        <svg class="me-1" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M14.2124 7.76241C14.2124 10.4062 12.0489 12.5248 9.34933 12.5248C6.6507 12.5248 4.48631 10.4062 4.48631 7.76241C4.48631 5.11865 6.6507 3 9.34933 3C12.0489 3 14.2124 5.11865 14.2124 7.76241ZM2 17.9174C2 15.47 5.38553 14.8577 9.34933 14.8577C13.3347 14.8577 16.6987 15.4911 16.6987 17.9404C16.6987 20.3877 13.3131 21 9.34933 21C5.364 21 2 20.3666 2 17.9174ZM16.1734 7.84875C16.1734 9.19506 15.7605 10.4513 15.0364 11.4948C14.9611 11.6021 15.0276 11.7468 15.1587 11.7698C15.3407 11.7995 15.5276 11.8177 15.7184 11.8216C17.6167 11.8704 19.3202 10.6736 19.7908 8.87118C20.4885 6.19676 18.4415 3.79543 15.8339 3.79543C15.5511 3.79543 15.2801 3.82418 15.0159 3.87688C14.9797 3.88454 14.9405 3.90179 14.921 3.93246C14.8955 3.97174 14.9141 4.02253 14.9396 4.05607C15.7233 5.13216 16.1734 6.44206 16.1734 7.84875ZM19.3173 13.7023C20.5932 13.9466 21.4317 14.444 21.7791 15.1694C22.0736 15.7635 22.0736 16.4534 21.7791 17.0475C21.2478 18.1705 19.5335 18.5318 18.8672 18.6247C18.7292 18.6439 18.6186 18.5289 18.6333 18.3928C18.9738 15.2805 16.2664 13.8048 15.5658 13.4656C15.5364 13.4493 15.5296 13.4263 15.5325 13.411C15.5345 13.4014 15.5472 13.3861 15.5697 13.3832C17.0854 13.3545 18.7155 13.5586 19.3173 13.7023Z" fill="#130F26"/>
+                                        </svg> Friends
+                                        <i class="fa-solid fa-angle-down ms-2"></i>
+                                    </a>
+                                </li>
+                                <!-- <li class="me-2">
+                                    <a href="javascript:void(0);">
+                                        <i class="fa-solid fa-plus me-1"></i> Album
+                                        <i class="fa-solid fa-angle-down ms-2"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <i class="fa-brands fa-instagram me-1"></i> Off
+                                        <i class="fa-solid fa-angle-down ms-2"></i>
+                                    </a>
+                                </li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-content-area">
+                    <textarea class="form-control" name="description" placeholder="What's on your mind?"></textarea>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <footer class="footer border-0 ">
+            <div class="container">
+                
+                <ul class="element-list">
+                    <div class="preview" id="preview">
+                        <!-- <img id="file-ip-1-preview">
+                        <div id="file-ip-2-preview"></div> -->
+                      </div>
+                    <li>
+                        <input type="file" name="image" id="postimage" hidden  accept="image/*,video/*" onchange="showPreview(event);">
+                        <a>
+                            <label for="postimage">
+                            <i class="fa-solid fa-file-image"></i>Photo/Video
+                        </label>
+                        </input>
+                        </a>
+                        <!-- 
+                     -->
+                    </li>
+                    <!-- <li>
+                        <a href="new-post.html">
+                            <i class="fa-solid fa-video"></i>Live Video
+                        </a>
+                    </li>
+                    <li>
+                        <a href="new-post.html">
+                            <i class="fa-solid fa-camera"></i>Camera
+                        </a>
+                    </li> -->
+                </ul>
+            </div>
+        </footer>
+        <!-- Footer End -->
+        <input type="hidden" name="seeYourPost" id="seeAction" value="P">
+    </form>
+    <!-- Offcanvas1 -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEnd1">
+
+        <div class="offcanvas-header px-3">
+            <h5 class="offcanvas-title" id="offcanvasEndLabel">Post audience</h5>
+            <button class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa fa-close"></i></button>
+                    </div>
+                    <div class="offcanvas-body small">
+                        <h6 class="title">Who can see your post?</h6>
+                        <ul class="list-style-1">
+                            <li>
+                                The Terms are to be read together by you with any terms, conditions or disclaimers provided in the pages of our website. Please review the Terms carefully. The Terms apply to all users of our website, including without limitation.
+                            </li>
+                            <li>
+                                The Terms are to be read together by you with any terms, conditions or disclaimers provided in the pages of our website. Please review the Terms carefully. The Terms apply to all users of our website, including without limitation.
+                            </li>
+                        </ul>
+                        <h6 class="title">Use of our Website</h6>
+                        <ul class="list-style-1">
+                            <li>
+                                You agree to not use our website to conduct any activity that would constitute a civil or criminal offence or violate any law.
+                            </li>
+                        </ul>
+                        <h6 class="title">Use of our Website</h6>
+                        <ul class="element-list style-2">
+                            <li>
+                                <a href="javascript:void(0);">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<mask id="mask0_33437_4524" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="13" width="16" height="9">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M2 13.957H17.1838V21.0566H2V13.957Z" fill="white"/>
+								</mask>
+								<g mask="url(#mask0_33437_4524)">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M9.59176 15.457C6.81276 15.457 3.49976 15.814 3.49976 17.519C3.49976 18.871 5.54976 19.557 9.59176 19.557C13.6338 19.557 15.6838 18.864 15.6838 17.499C15.6838 16.144 13.6338 15.457 9.59176 15.457ZM9.59176 21.057C7.51576 21.057 1.99976 21.057 1.99976 17.519C1.99976 13.957 7.71376 13.957 9.59176 13.957C12.8508 13.957 17.1838 14.324 17.1838 17.499C17.1838 21.057 11.4698 21.057 9.59176 21.057Z" fill="black"/>
+								</g>
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M9.59181 3.5C7.58681 3.5 5.95581 5.131 5.95581 7.135C5.95581 9.139 7.58681 10.77 9.59181 10.77H9.62281C10.5868 10.766 11.4948 10.387 12.1758 9.7C12.8578 9.015 13.2308 8.104 13.2268 7.138C13.2268 5.131 11.5958 3.5 9.59181 3.5ZM9.59181 12.27C6.75981 12.27 4.45581 9.966 4.45581 7.135C4.45581 4.304 6.75981 2 9.59181 2C12.4228 2 14.7268 4.304 14.7268 7.135C14.7328 8.499 14.2038 9.787 13.2398 10.757C12.2778 11.728 10.9928 12.265 9.62581 12.27H9.59181Z" fill="black"/>
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M16.4824 11.1318C16.1144 11.1318 15.7934 10.8608 15.7404 10.4858C15.6834 10.0758 15.9684 9.69577 16.3784 9.63877C17.6264 9.46377 18.5684 8.38077 18.5704 7.11877C18.5704 5.86477 17.6724 4.80677 16.4374 4.60477C16.0284 4.53677 15.7514 4.15177 15.8184 3.74277C15.8854 3.33377 16.2724 3.05877 16.6794 3.12377C18.6444 3.44577 20.0704 5.12677 20.0704 7.11977C20.0664 9.12477 18.5694 10.8468 16.5874 11.1248C16.5524 11.1298 16.5174 11.1318 16.4824 11.1318Z" fill="black"/>
+								<mask id="mask1_33437_4524" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="17" y="13" width="5" height="6">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8452 13.4834H21.979V18.4609H17.8452V13.4834Z" fill="white"/>
+								</mask>
+								<g mask="url(#mask1_33437_4524)">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M19.8955 18.4609C19.5925 18.4609 19.3075 18.2759 19.1945 17.9769C19.0475 17.5899 19.2425 17.1559 19.6295 17.0099C20.4795 16.6879 20.4795 16.2949 20.4795 16.1269C20.4795 15.5599 19.8085 15.1719 18.4855 14.9749C18.0755 14.9129 17.7925 14.5309 17.8535 14.1219C17.9155 13.7119 18.3045 13.4369 18.7065 13.4899C21.4125 13.8949 21.9795 15.1479 21.9795 16.1269C21.9795 16.8559 21.6645 17.8429 20.1615 18.4119C20.0745 18.4449 19.9845 18.4609 19.8955 18.4609Z" fill="black"/>
+								</g>
+							</svg>
+                                </a>
+                                <div class="ms-2" onclick="action('P')">
+                                    <h6 class="mb-0">Public</h6>
+                                    <span>Anyone on or off Connect</span>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<mask id="mask0_33437_4524" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="13" width="16" height="9">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M2 13.957H17.1838V21.0566H2V13.957Z" fill="white"/>
+								</mask>
+								<g mask="url(#mask0_33437_4524)">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M9.59176 15.457C6.81276 15.457 3.49976 15.814 3.49976 17.519C3.49976 18.871 5.54976 19.557 9.59176 19.557C13.6338 19.557 15.6838 18.864 15.6838 17.499C15.6838 16.144 13.6338 15.457 9.59176 15.457ZM9.59176 21.057C7.51576 21.057 1.99976 21.057 1.99976 17.519C1.99976 13.957 7.71376 13.957 9.59176 13.957C12.8508 13.957 17.1838 14.324 17.1838 17.499C17.1838 21.057 11.4698 21.057 9.59176 21.057Z" fill="black"/>
+								</g>
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M9.59181 3.5C7.58681 3.5 5.95581 5.131 5.95581 7.135C5.95581 9.139 7.58681 10.77 9.59181 10.77H9.62281C10.5868 10.766 11.4948 10.387 12.1758 9.7C12.8578 9.015 13.2308 8.104 13.2268 7.138C13.2268 5.131 11.5958 3.5 9.59181 3.5ZM9.59181 12.27C6.75981 12.27 4.45581 9.966 4.45581 7.135C4.45581 4.304 6.75981 2 9.59181 2C12.4228 2 14.7268 4.304 14.7268 7.135C14.7328 8.499 14.2038 9.787 13.2398 10.757C12.2778 11.728 10.9928 12.265 9.62581 12.27H9.59181Z" fill="black"/>
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M16.4824 11.1318C16.1144 11.1318 15.7934 10.8608 15.7404 10.4858C15.6834 10.0758 15.9684 9.69577 16.3784 9.63877C17.6264 9.46377 18.5684 8.38077 18.5704 7.11877C18.5704 5.86477 17.6724 4.80677 16.4374 4.60477C16.0284 4.53677 15.7514 4.15177 15.8184 3.74277C15.8854 3.33377 16.2724 3.05877 16.6794 3.12377C18.6444 3.44577 20.0704 5.12677 20.0704 7.11977C20.0664 9.12477 18.5694 10.8468 16.5874 11.1248C16.5524 11.1298 16.5174 11.1318 16.4824 11.1318Z" fill="black"/>
+								<mask id="mask1_33437_4524" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="17" y="13" width="5" height="6">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8452 13.4834H21.979V18.4609H17.8452V13.4834Z" fill="white"/>
+								</mask>
+								<g mask="url(#mask1_33437_4524)">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M19.8955 18.4609C19.5925 18.4609 19.3075 18.2759 19.1945 17.9769C19.0475 17.5899 19.2425 17.1559 19.6295 17.0099C20.4795 16.6879 20.4795 16.2949 20.4795 16.1269C20.4795 15.5599 19.8085 15.1719 18.4855 14.9749C18.0755 14.9129 17.7925 14.5309 17.8535 14.1219C17.9155 13.7119 18.3045 13.4369 18.7065 13.4899C21.4125 13.8949 21.9795 15.1479 21.9795 16.1269C21.9795 16.8559 21.6645 17.8429 20.1615 18.4119C20.0745 18.4449 19.9845 18.4609 19.8955 18.4609Z" fill="black"/>
+								</g>
+							</svg>
+                                </a>
+                                <div class="ms-2" onclick="action('F')">
+                                    <h6 class="mb-0">Friends</h6>
+                                    <span>Your Friends on App</span>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<mask id="mask0_33437_4524" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="13" width="16" height="9">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M2 13.957H17.1838V21.0566H2V13.957Z" fill="white"/>
+								</mask>
+								<g mask="url(#mask0_33437_4524)">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M9.59176 15.457C6.81276 15.457 3.49976 15.814 3.49976 17.519C3.49976 18.871 5.54976 19.557 9.59176 19.557C13.6338 19.557 15.6838 18.864 15.6838 17.499C15.6838 16.144 13.6338 15.457 9.59176 15.457ZM9.59176 21.057C7.51576 21.057 1.99976 21.057 1.99976 17.519C1.99976 13.957 7.71376 13.957 9.59176 13.957C12.8508 13.957 17.1838 14.324 17.1838 17.499C17.1838 21.057 11.4698 21.057 9.59176 21.057Z" fill="black"/>
+								</g>
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M9.59181 3.5C7.58681 3.5 5.95581 5.131 5.95581 7.135C5.95581 9.139 7.58681 10.77 9.59181 10.77H9.62281C10.5868 10.766 11.4948 10.387 12.1758 9.7C12.8578 9.015 13.2308 8.104 13.2268 7.138C13.2268 5.131 11.5958 3.5 9.59181 3.5ZM9.59181 12.27C6.75981 12.27 4.45581 9.966 4.45581 7.135C4.45581 4.304 6.75981 2 9.59181 2C12.4228 2 14.7268 4.304 14.7268 7.135C14.7328 8.499 14.2038 9.787 13.2398 10.757C12.2778 11.728 10.9928 12.265 9.62581 12.27H9.59181Z" fill="black"/>
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M16.4824 11.1318C16.1144 11.1318 15.7934 10.8608 15.7404 10.4858C15.6834 10.0758 15.9684 9.69577 16.3784 9.63877C17.6264 9.46377 18.5684 8.38077 18.5704 7.11877C18.5704 5.86477 17.6724 4.80677 16.4374 4.60477C16.0284 4.53677 15.7514 4.15177 15.8184 3.74277C15.8854 3.33377 16.2724 3.05877 16.6794 3.12377C18.6444 3.44577 20.0704 5.12677 20.0704 7.11977C20.0664 9.12477 18.5694 10.8468 16.5874 11.1248C16.5524 11.1298 16.5174 11.1318 16.4824 11.1318Z" fill="black"/>
+								<mask id="mask1_33437_4524" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="17" y="13" width="5" height="6">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8452 13.4834H21.979V18.4609H17.8452V13.4834Z" fill="white"/>
+								</mask>
+								<g mask="url(#mask1_33437_4524)">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M19.8955 18.4609C19.5925 18.4609 19.3075 18.2759 19.1945 17.9769C19.0475 17.5899 19.2425 17.1559 19.6295 17.0099C20.4795 16.6879 20.4795 16.2949 20.4795 16.1269C20.4795 15.5599 19.8085 15.1719 18.4855 14.9749C18.0755 14.9129 17.7925 14.5309 17.8535 14.1219C17.9155 13.7119 18.3045 13.4369 18.7065 13.4899C21.4125 13.8949 21.9795 15.1479 21.9795 16.1269C21.9795 16.8559 21.6645 17.8429 20.1615 18.4119C20.0745 18.4449 19.9845 18.4609 19.8955 18.4609Z" fill="black"/>
+								</g>
+							</svg>
+                                </a>
+                                <a href="javascript:void(0);" class="item-content item-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom">
+                                    <div class="ms-2" onclick="action('FE')">
+                                        <h6 class="mb-0">Friends exception...</h6>
+                                        <span>Don't show to some friends</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<mask id="mask0_33437_4524" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="13" width="16" height="9">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M2 13.957H17.1838V21.0566H2V13.957Z" fill="white"/>
+								</mask>
+								<g mask="url(#mask0_33437_4524)">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M9.59176 15.457C6.81276 15.457 3.49976 15.814 3.49976 17.519C3.49976 18.871 5.54976 19.557 9.59176 19.557C13.6338 19.557 15.6838 18.864 15.6838 17.499C15.6838 16.144 13.6338 15.457 9.59176 15.457ZM9.59176 21.057C7.51576 21.057 1.99976 21.057 1.99976 17.519C1.99976 13.957 7.71376 13.957 9.59176 13.957C12.8508 13.957 17.1838 14.324 17.1838 17.499C17.1838 21.057 11.4698 21.057 9.59176 21.057Z" fill="black"/>
+								</g>
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M9.59181 3.5C7.58681 3.5 5.95581 5.131 5.95581 7.135C5.95581 9.139 7.58681 10.77 9.59181 10.77H9.62281C10.5868 10.766 11.4948 10.387 12.1758 9.7C12.8578 9.015 13.2308 8.104 13.2268 7.138C13.2268 5.131 11.5958 3.5 9.59181 3.5ZM9.59181 12.27C6.75981 12.27 4.45581 9.966 4.45581 7.135C4.45581 4.304 6.75981 2 9.59181 2C12.4228 2 14.7268 4.304 14.7268 7.135C14.7328 8.499 14.2038 9.787 13.2398 10.757C12.2778 11.728 10.9928 12.265 9.62581 12.27H9.59181Z" fill="black"/>
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M16.4824 11.1318C16.1144 11.1318 15.7934 10.8608 15.7404 10.4858C15.6834 10.0758 15.9684 9.69577 16.3784 9.63877C17.6264 9.46377 18.5684 8.38077 18.5704 7.11877C18.5704 5.86477 17.6724 4.80677 16.4374 4.60477C16.0284 4.53677 15.7514 4.15177 15.8184 3.74277C15.8854 3.33377 16.2724 3.05877 16.6794 3.12377C18.6444 3.44577 20.0704 5.12677 20.0704 7.11977C20.0664 9.12477 18.5694 10.8468 16.5874 11.1248C16.5524 11.1298 16.5174 11.1318 16.4824 11.1318Z" fill="black"/>
+								<mask id="mask1_33437_4524" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="17" y="13" width="5" height="6">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8452 13.4834H21.979V18.4609H17.8452V13.4834Z" fill="white"/>
+								</mask>
+								<g mask="url(#mask1_33437_4524)">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M19.8955 18.4609C19.5925 18.4609 19.3075 18.2759 19.1945 17.9769C19.0475 17.5899 19.2425 17.1559 19.6295 17.0099C20.4795 16.6879 20.4795 16.2949 20.4795 16.1269C20.4795 15.5599 19.8085 15.1719 18.4855 14.9749C18.0755 14.9129 17.7925 14.5309 17.8535 14.1219C17.9155 13.7119 18.3045 13.4369 18.7065 13.4899C21.4125 13.8949 21.9795 15.1479 21.9795 16.1269C21.9795 16.8559 21.6645 17.8429 20.1615 18.4119C20.0745 18.4449 19.9845 18.4609 19.8955 18.4609Z" fill="black"/>
+								</g>
+							</svg>
+                                </a>
+                                <a href="javascript:void(0);" class="item-content item-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1" aria-controls="offcanvasBottom">
+                                    <div class="ms-2" onclick="action('SF')">
+                                        <h6 class="mb-0">Specific friends</h6>
+                                        <span>Only show to some friends</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M16.9229 10.2C16.5089 10.2 16.1729 9.86401 16.1729 9.45001V7.30301C16.1729 5.20701 14.4679 3.50201 12.3719 3.50201H12.3559C11.3429 3.50201 10.3939 3.89201 9.67688 4.60301C8.95488 5.31701 8.55588 6.27001 8.55188 7.28601V9.45001C8.55188 9.86401 8.21588 10.2 7.80188 10.2C7.38788 10.2 7.05188 9.86401 7.05188 9.45001V7.30301C7.05788 5.86301 7.61488 4.53401 8.61988 3.53801C9.62588 2.54101 10.9539 1.96401 12.3749 2.00201C15.2949 2.00201 17.6729 4.38001 17.6729 7.30301V9.45001C17.6729 9.86401 17.3369 10.2 16.9229 10.2Z" fill="black"/>
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M8.542 10.1288C6.864 10.1288 5.5 11.4928 5.5 13.1708V17.4598C5.5 19.1378 6.864 20.5018 8.542 20.5018H16.183C17.86 20.5018 19.225 19.1378 19.225 17.4598V13.1708C19.225 11.4928 17.86 10.1288 16.183 10.1288H8.542ZM16.183 22.0018H8.542C6.037 22.0018 4 19.9648 4 17.4598V13.1708C4 10.6658 6.037 8.62878 8.542 8.62878H16.183C18.688 8.62878 20.725 10.6658 20.725 13.1708V17.4598C20.725 19.9648 18.688 22.0018 16.183 22.0018Z" fill="black"/>
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M12.3623 17.1756C11.9483 17.1756 11.6123 16.8396 11.6123 16.4256V14.2046C11.6123 13.7906 11.9483 13.4546 12.3623 13.4546C12.7763 13.4546 13.1123 13.7906 13.1123 14.2046V16.4256C13.1123 16.8396 12.7763 17.1756 12.3623 17.1756Z" fill="black"/>
+							</svg>
+                                </a>
+                                <div class="ms-2" onclick="action('O')">
+                                    <h6 class="mb-0">Only me</h6>
+                                    <span>Only me</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- Offcanvas1 -->
+
+
+                <!-- OffCanvas-1 -->
+                <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom1">
+                    <button type="button" class="btn-close drage-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    <div class="offcanvas-header share-style m-0 pb-0">
+
+                    </div>
+                    <div class="offcanvas-body container pb-0">
+                        <!-- <form> -->
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search..">
+                            <span class="input-group-text"> 
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M23.7871 22.7761L17.9548 16.9437C19.5193 15.145 20.4665 12.7982 20.4665 10.2333C20.4665 4.58714 15.8741 0 10.2333 0C4.58714 0 0 4.59246 0 10.2333C0 15.8741 4.59246 20.4665 10.2333 20.4665C12.7982 20.4665 15.145 19.5193 16.9437 17.9548L22.7761 23.7871C22.9144 23.9255 23.1007 24 23.2816 24C23.4625 24 23.6488 23.9308 23.7871 23.7871C24.0639 23.5104 24.0639 23.0528 23.7871 22.7761ZM1.43149 10.2333C1.43149 5.38004 5.38004 1.43681 10.2279 1.43681C15.0812 1.43681 19.0244 5.38537 19.0244 10.2333C19.0244 15.0812 15.0812 19.035 10.2279 19.035C5.38004 19.035 1.43149 15.0865 1.43149 10.2333Z" fill="#FE9063"></path>
+                    </svg>
+                </span>
+                        </div>
+                        <!-- </form> -->
+                        <div class="canvas-height mt-4 dz-scroll">
+                            <ul class="share-list" id="friendsList">
+                                {% for user in friendsList %}
+                                <li>
+                                    <div class="left-content">
+                                        <a href="javascript:void(0);"><img src="/static/assets/images/stories/small/pic3.jpg" alt="/"></a>
+                                        <a href="javascript:void(0);">
+                                            <h6 class="name">{{user.name}}</h6>
+                                        </a>
+                                    </div>
+                                    <a href="javascript:void(0);" class="btn btn-primary btn-sm" id="selectFriends{{user.id}}" onclick="selectFriends('{{user.id}}')">Select</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- OffCanvas-1 -->
+            </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+            <script>
+                function action(e) {
+                    $("#seeAction").val(e);
+                    // if ($("#seeAction").val() == 3) {
+                    //     var type = 'FE';
+                    // } else if ($("#seeAction").val() == 4) {
+                    $.ajax({
+                        type: "post",
+                        url: "/lodeFriendList",
+                        data: {
+                            // action: '1'
+                        },
+                        success: function(data) {
+                            $("#friendsList").html(data);
+                        }
+                    });
+                    // }
+                    if (e != 'FE' && e != 'SF') {
+                        $(".btn-close").click();
+                    }
+
+                }
+
+                function selectFriends(id) {
+                    if ($("#seeAction").val() == 'FE') {
+                        var type = 'FE';
+                    } else {
+                        var type = 'SF';
+                    }
+
+                    if ($("#selectFriends" + id).html() == 'Select') {
+                        var action = 1;
+                    } else {
+                        var action = 0;
+                    }
+                    $.ajax({
+                        type: "post",
+                        url: "/seePost",
+                        data: {
+                            id: id,
+                            type: type,
+                            action: action
+                        },
+                        success: function(r) {
+                            // alert(r);
+                            if ($("#selectFriends" + id).html() == 'Select') {
+
+                                $("#selectFriends" + id).html("Unselect");
+                                $("#selectFriends" + id).css({
+                                    'background': '#000000',
+                                    'border': '#000000'
+
+                                });
+                            } else {
+                                $("#selectFriends" + id).html("Select");
+                                $("#selectFriends" + id).css({
+                                    'background': '#FE9063',
+                                    'border': '#FE9063'
+                                });
+
+                            }
+                        }
+                    });
+
+                }
+                $(".preview").hide();
+
+                // function showPreview(event) {
+                //     if (event.target.files.length > 0) {
+                //         var src = URL.createObjectURL(event.target.files[0]);
+                //         var preview = document.getElementById("file-ip-1-preview");
+                //         preview.src = src;
+                //         preview.style.display = "block";
+                //         $(".preview").show();
+                //     }
+                // }
+                function showPreview(event) {
+                    if (event.target.files.length > 0) {
+                        var file = event.target.files[0];
+                        var src = URL.createObjectURL(file);
+                        var previewImage = document.getElementById("file-ip-1-preview");
+                        var previewVideo = document.getElementById("file-ip-2-preview");
+
+                        if (file.type.startsWith('image/')) {
+                            // previewImage.src = src;
+                            // preview.style.display = "block";
+                            var video = document.createElement("img");
+                            video.src = src;
+                            video.controls = true;
+                            $("#preview").html(video);
+
+                        } else if (file.type.startsWith('video/')) {
+                            // preview.src = "";
+                            var video = document.createElement("video");
+                            video.src = src;
+                            video.controls = true;
+                            // previewVideo.appendChild(video);
+                            $("#preview").html(video);
+                            // previewVideo.style.display = "block";
+
+                        }
+
+                        $(".preview").show();
+                    }
+                }
+            </script>
+            {% endblock body %}

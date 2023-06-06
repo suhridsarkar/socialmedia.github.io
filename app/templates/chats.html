@@ -1,0 +1,116 @@
+{% extends 'commen.html' %} {% block title %} Home {% endblock title %} {% block body %}
+
+<!-- Page Content -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+<div class="page-content">
+    <div class="content-inner pt-0">
+        <div class="container bottom-content">
+            <form>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search..">
+                    <span class="input-group-text"> 
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M23.7871 22.7761L17.9548 16.9437C19.5193 15.145 20.4665 12.7982 20.4665 10.2333C20.4665 4.58714 15.8741 0 10.2333 0C4.58714 0 0 4.59246 0 10.2333C0 15.8741 4.59246 20.4665 10.2333 20.4665C12.7982 20.4665 15.145 19.5193 16.9437 17.9548L22.7761 23.7871C22.9144 23.9255 23.1007 24 23.2816 24C23.4625 24 23.6488 23.9308 23.7871 23.7871C24.0639 23.5104 24.0639 23.0528 23.7871 22.7761ZM1.43149 10.2333C1.43149 5.38004 5.38004 1.43681 10.2279 1.43681C15.0812 1.43681 19.0244 5.38537 19.0244 10.2333C19.0244 15.0812 15.0812 19.035 10.2279 19.035C5.38004 19.035 1.43149 15.0865 1.43149 10.2333Z" fill="var(--primary)"/>
+							</svg>
+						</span>
+                </div>
+            </form>
+            <div class="author-notification mb-4">
+                <div class="swiper-btn-center-lr my-0">
+                    <div class="swiper-container categorie-swiper">
+                        <div class="swiper-wrapper">
+                            {%for user in friendslist:%}
+                            <div class="swiper-slide">
+                                <a href="/chat/{{user.id}}" class="categore-box style-1">
+                                    <div class="story-bx">
+                                        {%if user.image:%}
+                                        <img alt="Avatar" src="static/uploads/profile/{{user.image}}" alt="/"> {% else: %}
+                                        <img alt="Avatar" src="/static/assets/images/noimage.jpg" alt="/"> {% endif %}
+                                        <div class="add-box bg-green" style="background-color: lightgreen !important;">
+                                        </div>
+                                    </div>
+                                    <span class="detail">{{ user.name }}</span>
+                                </a>
+                            </div>
+                            {%endfor%}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="dz-list message-list" id="">
+                {%for user in chats:%}
+
+                <li>
+                    <a href="/chat/{{user.user.id}}">
+                        <div class="media media-50">
+                            {%if user.user.image:%}
+                            <img alt="Avatar" class="rounded" src="static/uploads/profile/{{user.user.image}}" alt="/"> {% else: %}
+                            <img alt="Avatar" class="rounded" src="/static/assets/images/noimage.jpg" alt="/"> {% endif %}
+                        </div>
+                        <div class="media-content">
+                            <div>
+                                <h6 class="name">{{ user.user.name }}</h6>
+                                <p class="my-1">
+                                    {{ user.chat.messages }}
+                                </p>
+                            </div>
+                            <div class="left-content">
+                                <span class="time">{{ user.chat.date }}</span>
+                                <div class="seen-btn active mt-2">
+                                    <svg width="11" height="9" viewBox="0 0 11 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M3.73609 8.82324L0.161085 4.90081C-0.0536949 4.66516 -0.0536949 4.28308 0.161085 4.0474L0.938884 3.19399C1.15366 2.95832 1.50193 2.95832 1.71671 3.19399L4.125 5.8363L9.28329 0.176739C9.49807 -0.058913 9.84634 -0.058913 10.0611 0.176739L10.8389 1.03015C11.0537 1.2658 11.0537 1.64789 10.8389 1.88356L4.51391 8.82326C4.29911 9.05892 3.95087 9.05892 3.73609 8.82324Z" fill="#BBB6D0"/>
+										</svg>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {%endfor%}
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- PWA Offcanvas End -->
+
+<script>
+    $(document).ready(function() {
+        $('#searchInput').on('keyup', function() {
+            let searchValue = $(this).val().toLowerCase();
+            $('ul li').each(function() {
+                let listItem = $(this).text().toLowerCase();
+                if (listItem.includes(searchValue)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    });
+</script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#searchInput').keyup(function() {
+            var search = $(this).val().toLowerCase();
+            $('.dz-list li').each(function() {
+                var name = $(this).find('.name').text().toLowerCase();
+                var message = $(this).find('p').text().toLowerCase();
+                if (name.indexOf(search) > -1 || message.indexOf(search) > -1) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    });
+</script>
+
+
+{% endblock body %}

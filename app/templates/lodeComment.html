@@ -1,0 +1,35 @@
+{% for comment in comments: %}
+<li>
+    <div class="list-content">
+        {%if comment.user.image:%}
+        <img alt="Avatar" src="/static/uploads/profile/{{comment.user.image}}" alt="/"> {% else: %}
+        <img alt="Avatar" src="/static/assets/images/noimage.jpg" alt="/"> {% endif %}
+        <div>
+            <h6 class="font-14 mb-1">{{comment.user.name}}</h6>
+            <p class="mb-2">{{comment.comment}}</p>
+            <ul class="bottom-item">
+                <li class="text-light">3 Like</li>
+                <li class="text-light">Reply</li>
+                <li class="text-light">Send</li>
+            </ul>
+        </div>
+    </div>
+    <div class="ms-auto">
+        <div class="like-button"><i class="fa-regular fa-heart ms-auto"></i></div>
+    </div>
+    <!-- <li class="parent-list">
+                        <div class="list-content">
+                            <img src="/static/assets/images/stories/small/pic2.jpg" alt="/">
+                            <div>
+                                <h6 class="font-14 mb-1">Lucas</h6>
+                                <p class="mb-2">Yes I am also use this.🙂</p>
+                                <ul class="bottom-item">
+                                    <li class="text-light">Reply</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="ms-auto">
+                            <div class="like-button"><i class="fa-regular fa-heart ms-auto"></i></div>
+                        </div>-->
+</li>
+{%endfor%}
